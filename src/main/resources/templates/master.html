@@ -3,46 +3,66 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <meta name="description" content=""/>
-    <meta name="author" content=""/>
-    <title th:text="'My Portfolio - '+${title}"></title>
-    <!-- Favicon-->
+    <title th:text="'Suraj Hanvate - '+${title}"></title>
+
+    <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico"/>
-    <!-- Custom Google font-->
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
-          rel="stylesheet"/>
-    <!-- Bootstrap icons-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet"/>
-    <!-- Core theme CSS (includes Bootstrap)-->
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+
+    <!-- Bootstrap CSS & Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"/>
+
+    <!-- Core & Theme CSS -->
     <link href="assets/css/styles.css" rel="stylesheet"/>
+    <link href="assets/css/theme.css" rel="stylesheet"/>
+    <style>
+        /* Make main expand to push footer down */
+        main {
+            flex: 1 0 auto;
+        }
+    </style>
 </head>
+
 <body class="d-flex flex-column h-100">
-<main class="flex-shrink-0">
+<main>
     <!-- Navigation-->
     <div th:insert="~{menu :: menu}"></div>
 
-    <div th:if="${title == 'Home'}">
-        <div th:insert="~{home :: home}"></div>
-    </div>
-    <div th:if="${title == 'Projects'}">
-        <div th:insert="~{projects :: projects}"></div>
-    </div>
-    <div th:if="${title == 'Contact'}">
-        <div th:insert="~{contact :: contact}"></div>
-    </div>
-    <div th:if="${title == 'Resume'}">
-        <div th:insert="~{resume :: resume}"></div>
-    </div>
+    <!-- Dynamic Sections -->
+    <div th:if="${title == 'Home'}" th:insert="~{home :: home}"></div>
+    <div th:if="${title == 'Projects'}" th:insert="~{projects :: projects}"></div>
+    <div th:if="${title == 'Contact'}" th:insert="~{contact :: contact}"></div>
+    <div th:if="${title == 'Resume'}" th:insert="~{resume :: resume}"></div>
 </main>
+
 <!-- Footer-->
 <div th:insert="~{footer :: footer}"></div>
 
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- Bootstrap core JS-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Core theme JS-->
-<script src="assets/js/scripts.js"></script>
+<!-- Theme toggle -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const toggleButton = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        if (!toggleButton || !themeIcon) return;
+
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        themeIcon.className = currentTheme === 'dark' ? 'bi bi-sun-fill' : 'bi bi-moon-fill';
+
+        toggleButton.addEventListener('click', () => {
+            const theme = document.documentElement.getAttribute('data-theme');
+            const newTheme = theme === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            themeIcon.className = newTheme === 'dark' ? 'bi bi-sun-fill' : 'bi bi-moon-fill';
+        });
+    });
+</script>
 </body>
 </html>
