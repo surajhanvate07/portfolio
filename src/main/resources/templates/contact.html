@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+    <style>
+        /* Reduce vertical spacing */
+        .py-5 { padding-top: 2rem !important; padding-bottom: 2rem !important; }
+        .mb-5 { margin-bottom: 2rem !important; }
+        .mb-3 { margin-bottom: 1rem !important; }
+
+        /* Style for invalid input fields */
+        .form-control.is-invalid {
+            border-color: #dc3545; /* Bootstrap red */
+            padding-right: 2.5rem;
+            background-repeat: no-repeat;
+            background-position: right calc(0.375em + 0.1875rem) center;
+            background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+        }
+
+        /* Error message styling */
+        .error-message {
+            color: #dc3545; /* Bootstrap red */
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        /* Optional: icon inside input for invalid field */
+        .form-control.is-invalid {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='red'%3e%3cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 8v4m0 4h.01M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z'/%3e%3c/svg%3e");
+        }
+
+        /* Reduce padding inside form container */
+        .bg-light.py-5.px-4.px-md-5 {
+            padding-top: 2rem !important;
+            padding-bottom: 2rem !important;
+            padding-left: 1.5rem !important;
+            padding-right: 1.5rem !important;
+        }
+
+        /* Optional: smaller textarea */
+        textarea.form-control {
+            height: 8rem !important;
+        }
+    </style>
+</head>
+<body>
+<section class="py-5" th:fragment="contact">
+    <div class="container px-5">
+        <div class="bg-light rounded-4 py-4 px-4 px-md-5">
+            <div class="text-center mb-5">
+                <div class="feature bg-primary bg-gradient-primary-to-secondary text-white rounded-3 mb-3">
+                    <i class="bi bi-envelope"></i>
+                </div>
+                <h1 class="fw-bolder">Get in touch</h1>
+                <p class="lead fw-normal text-muted mb-0">Let's work together!</p>
+            </div>
+            <div class="row gx-5 justify-content-center">
+                <div class="col-lg-8 col-xl-6">
+                    <form th:action="@{/contact}" th:object="${contactForm}" method="post">
+                        <!-- Name input-->
+                        <div class="form-floating mb-3">
+                            <input type="text" th:field="*{name}"
+                                   th:classappend="${#fields.hasErrors('name')} ? 'is-invalid' : ''"
+                                   class="form-control" placeholder="Enter your name..." />
+                            <label for="name">Full name <span style="color: red;">*</span></label>
+                            <div class="error-message" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                        </div>
+
+                        <!-- Email address input-->
+                        <div class="form-floating mb-3">
+                            <input type="email" th:field="*{email}"
+                                   th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : ''"
+                                   class="form-control" placeholder="name@example.com" />
+                            <label for="email">Email address <span style="color: red;">*</span></label>
+                            <div class="error-message" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                        </div>
+
+                        <!-- Phone number input (Optional)-->
+                        <div class="form-floating mb-3">
+                            <input type="tel" th:field="*{phone}" class="form-control" placeholder="(123) 456-7890" />
+                            <label for="phone">Phone number</label>
+                        </div>
+
+                        <!-- Message input-->
+                        <div class="form-floating mb-3">
+                            <textarea th:field="*{message}"
+                                      th:classappend="${#fields.hasErrors('message')} ? 'is-invalid' : ''"
+                                      class="form-control" placeholder="Enter your message here..."></textarea>
+                            <label for="message">Message <span style="color: red;">*</span></label>
+                            <div class="error-message" th:if="${#fields.hasErrors('message')}" th:errors="*{message}"></div>
+                        </div>
+
+                        <!-- Success message -->
+                        <div th:if="${successMessage}" class="text-success text-center mb-3">
+                            <p th:text="${successMessage}"></p>
+                        </div>
+
+                        <!-- Submit Button-->
+                        <div class="d-grid">
+                            <button class="btn btn-primary btn-lg" type="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
