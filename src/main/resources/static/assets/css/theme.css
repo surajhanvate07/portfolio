@@ -1,162 +1,151 @@
- /* Light mode defaults */
-        :root {
-            --bg-color: #ffffff;
-            --text-color: #212529;
-            --subtext-color: #6c757d;
-            --link-color: #0d6efd;
-            --card-bg: #f8f9fa;
-            --nav-bg: #ffffff;
-        }
+/* =====================
+   Color Variables
+===================== */
+:root {
+    --bg-color: #ffffff;
+    --text-color: #212529;
+    --subtext-color: #6c757d;
+    --link-color: #0d6efd;
+    --card-bg: #f8f9fa;
+    --nav-bg: #ffffff;
+}
 
-        /* Dark mode overrides */
-        [data-theme="dark"] {
-            --bg-color: #121212;
-            --text-color: #f8f9fa;
-            --subtext-color: #b5b5b5;
-            --link-color: #66b2ff;
-            --card-bg: #1e1e1e;
-            --nav-bg: #1a1a1a;
-        }
+[data-theme="dark"] {
+    --bg-color: #121212;
+    --text-color: #f8f9fa;
+    --subtext-color: #b5b5b5;
+    --link-color: #66b2ff;
+    --card-bg: #1e1e1e;
+    --nav-bg: #1a1a1a;
+}
 
-        /* Apply colors globally */
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            transition: background-color 0.3s, color 0.3s;
-        }
+/* =====================
+   Global Styles
+===================== */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+}
 
-        /* Navbar and footer share background */
-        nav.navbar, footer {
-            background-color: var(--nav-bg) !important;
-            color: var(--text-color) !important;
-            transition: background-color 0.3s, color 0.3s;
-        }
+nav.navbar, footer {
+    background-color: var(--nav-bg) !important;
+    color: var(--text-color) !important;
+    transition: background-color 0.3s, color 0.3s;
+}
 
-        /* Links, brand, subtitles */
-        a, .nav-link {
-            color: var(--text-color) !important;
-            transition: color 0.3s;
-        }
-        a:hover, .nav-link:hover {
-            color: var(--link-color) !important;
-        }
-        .navbar-brand span:first-child {
-            color: var(--link-color) !important;
-        }
-        .navbar-brand span:last-child {
-            color: var(--subtext-color) !important;
-        }
+/* =====================
+   Links and Brand Text
+===================== */
+a, .nav-link {
+    color: var(--text-color) !important;
+    transition: color 0.3s;
+}
 
-        /* Cards / sections */
-        .card {
-            background-color: var(--card-bg);
-            color: var(--text-color);
-            transition: background-color 0.3s, color 0.3s;
-        }
+a:hover, .nav-link:hover {
+    color: var(--link-color) !important;
+}
 
-        /* Theme toggle button */
-        #theme-toggle {
-            border: none;
-            background: transparent;
-            color: var(--text-color);
-            font-size: 1.25rem;
-            transition: color 0.3s;
-        }
-        #theme-toggle:hover {
-            color: var(--link-color);
-        }
-        .theme-card {
-            background-color: var(--card-bg);
-            color: var(--text-color);
-            border: 1px solid #dee2e6; /* Light border by default */
-            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-        }
+.navbar-brand span:first-child { color: var(--link-color) !important; }
+.navbar-brand span:last-child { color: var(--subtext-color) !important; }
 
-        /* Dark mode border override */
-        [data-theme="dark"] .theme-card {
-            border-color: #333; /* Darker border for dark theme */
-        }
-        /* Timeline box styling */
-        .timeline-box {
-            background-color: #f5f5f5; /* light gray for light mode */
-            color: var(--text-color);
-            border: 0px solid #dee2e6;
-            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-        }
-
-        /* Dark mode overrides */
-        [data-theme="dark"] .timeline-box {
-            background-color: #2a2a2a; /* dark gray, not pure black */
-            border-color: #444;         /* subtle border in dark mode */
-            color: var(--text-color);
-        }
-
-        /* Contact card background */
-.contact-card {
+/* =====================
+   Cards and Sections
+===================== */
+.card, .theme-card, .contact-card, .timeline-box {
     background-color: var(--card-bg);
     color: var(--text-color);
     border: 1px solid #dee2e6;
-    border-radius: 1rem;
-    padding: 2rem;
     transition: all 0.3s;
 }
 
-/* Floating label input */
-.contact-card .form-floating > .form-control {
-    background-color: var(--card-bg); /* same as card */
-    color: var(--text-color);
-    border: 1px solid #ced4da;
-    border-radius: 0.5rem; /* optional, rounded corners inside input */
-    transition: all 0.3s;
-}
-
-/* Placeholder color */
-.contact-card .form-floating > .form-control::placeholder {
-    color: var(--subtext-color);
-    opacity: 1;
-}
-
-/* Label when input empty */
-.contact-card .form-floating > .form-control:placeholder-shown ~ label {
-    color: var(--subtext-color);
-}
-
-/* Label when input focused or has value */
-.contact-card .form-floating > .form-control:focus ~ label,
-.contact-card .form-floating > .form-control:not(:placeholder-shown) ~ label {
-    color: var(--text-color);
-}
-
-/* Remove Bootstrap default focus background */
-.contact-card .form-floating > .form-control:focus {
-    background-color: var(--card-bg) !important; /* keeps card background */
-    color: var(--text-color);
-    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25); /* optional, subtle focus glow */
-}
-
-/* Dark theme overrides */
-[data-theme="dark"] .contact-card {
-    background-color: #1e1e1e;
+[data-theme="dark"] .theme-card,
+[data-theme="dark"] .contact-card,
+[data-theme="dark"] .timeline-box {
     border-color: #444;
 }
 
-[data-theme="dark"] .contact-card .form-floating > .form-control {
+/* =====================
+   Timeline Box
+===================== */
+.timeline-box {
+    background-color: #f5f5f5;
+    border: 0;
+}
+
+[data-theme="dark"] .timeline-box {
+    background-color: #2a2a2a;
+}
+
+/* =====================
+   Form Styling Fixes
+===================== */
+[data-theme="dark"] .contact-card .form-control {
     border-color: #555;
-    color: #f8f9fa;
-    background-color: #1e1e1e;
+    color: var(--text-color);
+    background-color: transparent;
 }
 
-[data-theme="dark"] .contact-card .form-floating > .form-control::placeholder {
-    color: #b5b5b5;
+[data-theme="dark"] .form-floating > label,
+[data-theme="dark"] .form-floating > .form-control:focus ~ label,
+[data-theme="dark"] .form-floating > .form-control:not(:placeholder-shown) ~ label {
+    color: var(--text-color) !important;
 }
 
-[data-theme="dark"] .contact-card .form-floating > .form-control:placeholder-shown ~ label {
-    color: #b5b5b5;
+/* Remove focus rectangle from floating label */
+.form-floating > label::after {
+    background-color: transparent !important;
 }
 
-[data-theme="dark"] .contact-card .form-floating > .form-control:focus,
-[data-theme="dark"] .contact-card .form-floating > .form-control:not(:placeholder-shown) {
-    color: #f8f9fa;
-    background-color: #1e1e1e !important;
-    box-shadow: 0 0 0 0.25rem rgba(102, 178, 255, 0.25);
+/* =====================
+   Theme Toggle
+===================== */
+#theme-toggle {
+    border: none;
+    background: transparent;
+    color: var(--text-color);
+    font-size: 1.25rem;
+    transition: color 0.3s;
+}
+
+#theme-toggle:hover {
+    color: var(--link-color);
+}
+
+[data-theme="dark"] .btn-primary {
+    background-color: #34c4cf !important;
+    color: #212529 !important;     /* true black text */
+    border: none;
+    border-radius: 0.8em;
+    font-weight: 600;
+    transition: background 0.3s, color 0.3s;
+}
+
+[data-theme="dark"] .btn-primary:hover {
+    background-color: #19b7c4 !important;
+    color: #111 !important;
+}
+
+/* Light mode - always white text */
+[data-theme="light"] .btn-primary,
+:root .btn-primary {
+    background-color: #1976fd !important;
+    color: #fff !important;        /* pure white text */
+    border: none;
+    border-radius: 0.8em;
+    font-weight: 600;
+    transition: background 0.3s, color 0.3s;
+}
+
+[data-theme="light"] .btn-primary:hover,
+:root .btn-primary:hover {
+    background-color: #1256bb !important;
+    color: #fff !important;
+}
+[data-theme="dark"] .text-primary {
+    color: #34c4cf !important; /* cyan shade as your button */
+}
+
+[data-theme="dark"] .text-primary:hover {
+    color: #19b7c4 !important; /* slightly darker cyan on hover */
 }
