@@ -59,6 +59,19 @@
                 </div>
             </div>
 
+            <!-- Error message -->
+            <div class="d-flex justify-content-center mb-3">
+                <div th:if="${errorMessage}"
+                     class="alert alert-danger alert-dismissible fade show d-inline-block text-center"
+                     role="alert"
+                     style="max-width: 90%; min-width: 200px;">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                    <span th:text="${errorMessage}"></span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+
+
             <div class="row gx-5 justify-content-center">
                 <div class="col-lg-8 col-xl-6">
                     <form th:action="@{/contact}" th:object="${contactForm}" method="post">

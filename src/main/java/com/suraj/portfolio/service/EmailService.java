@@ -1,16 +1,13 @@
 package com.suraj.portfolio.service;
 
 import com.suraj.portfolio.forms.ContactForm;
-import jakarta.mail.MessagingException;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import org.slf4j.Logger;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
-import java.io.UnsupportedEncodingException;
 
 @Service
 public class EmailService {
@@ -24,7 +21,7 @@ public class EmailService {
         this.mailSender = mailSender;
     }
 
-    public void sendEmail(ContactForm contactForm) throws UnsupportedEncodingException, MessagingException {
+    public void sendEmail(ContactForm contactForm) throws Exception {
         logger.info("Preparing to send email from contact form submitted by: {}", contactForm.getEmail());
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "UTF-8");

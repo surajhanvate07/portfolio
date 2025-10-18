@@ -43,16 +43,18 @@ public class ContactController {
         logger.info("Contact form submitted successfully: Name={}, Email={}, Phone={}, Message={}",
                 contactForm.getName(), contactForm.getEmail(), contactForm.getPhone(), contactForm.getMessage());
 
-        model.addAttribute("successMessage", "Thanks for reaching out! We'll get back to you soon.");
-        model.addAttribute("contactForm", new ContactForm());
-        model.addAttribute("title", "Contact");
-
         try {
             emailService.sendEmail(contactForm);
-        } catch (UnsupportedEncodingException | MessagingException e) {
-            throw new RuntimeException(e);
+            model.addAttribute("successMessage", "Thanks for reaching out! We'll get back to you soon.");
+            model.addAttribute("contactForm", new ContactForm());
+
+        } catch (Exception e) {
+            logger.error("Error sending email: {}", e.getMessage());
+            model.addAttribute("errorMessage", "Sorry, we couldn't send your message at this time. Please try again later.");
+            model.addAttribute("contactForm", contactForm);
         }
 
+        model.addAttribute("title", "Contact");
         return "master";
     }
 }
