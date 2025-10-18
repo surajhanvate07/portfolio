@@ -1,10 +1,16 @@
 package com.suraj.portfolio.service;
 
 import com.suraj.portfolio.forms.ContactForm;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
 import org.slf4j.Logger;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+
+import java.io.UnsupportedEncodingException;
 
 @Service
 public class EmailService {
@@ -18,17 +24,16 @@ public class EmailService {
         this.mailSender = mailSender;
     }
 
-    public void sendEmail(ContactForm contactForm) {
+    public void sendEmail(ContactForm contactForm) throws UnsupportedEncodingException, MessagingException {
         logger.info("Preparing to send email from contact form submitted by: {}", contactForm.getEmail());
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(RECEIVER_EMAIL);
-        message.setSubject("New Message from " + contactForm.getName() + " (Portfolio Contact Form)");
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "UTF-8");
 
-        // Set from (optional, depending on your SMTP config)
-        message.setFrom(RECEIVER_EMAIL);
-
-        // Set reply-to to the submitter's email
-        message.setReplyTo(contactForm.getEmail());
+        // Set from: display name and email address
+        helper.setFrom(new InternetAddress(RECEIVER_EMAIL, "Your Portfolio"));
+        helper.setTo(RECEIVER_EMAIL);
+        helper.setReplyTo(contactForm.getEmail());
+        helper.setSubject("New Message from " + contactForm.getName() + " (Portfolio Contact Form)");
 
         StringBuilder bodyBuilder = new StringBuilder();
         bodyBuilder.append("You have received a new contact form submission:\n\n")
@@ -38,11 +43,10 @@ public class EmailService {
         if (contactForm.getPhone() != null && !contactForm.getPhone().trim().isEmpty()) {
             bodyBuilder.append("Phone: ").append(contactForm.getPhone()).append("\n");
         }
-
         bodyBuilder.append("Message:\n").append(contactForm.getMessage());
 
-        message.setText(bodyBuilder.toString());
-        mailSender.send(message);
+        helper.setText(bodyBuilder.toString(), false);
+        mailSender.send(mimeMessage);
         logger.info("Email sent successfully to: {}", RECEIVER_EMAIL);
     }
 

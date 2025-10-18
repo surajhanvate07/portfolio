@@ -2,6 +2,7 @@ package com.suraj.portfolio.controller;
 
 import com.suraj.portfolio.forms.ContactForm;
 import com.suraj.portfolio.service.EmailService;
+import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.io.UnsupportedEncodingException;
 
 @Controller
 public class ContactController {
@@ -44,7 +47,11 @@ public class ContactController {
         model.addAttribute("contactForm", new ContactForm());
         model.addAttribute("title", "Contact");
 
-        emailService.sendEmail(contactForm);
+        try {
+            emailService.sendEmail(contactForm);
+        } catch (UnsupportedEncodingException | MessagingException e) {
+            throw new RuntimeException(e);
+        }
 
         return "master";
     }
