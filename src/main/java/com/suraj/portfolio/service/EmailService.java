@@ -6,6 +6,7 @@ import jakarta.mail.internet.MimeMessage;
 import org.slf4j.Logger;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 
@@ -21,6 +22,7 @@ public class EmailService {
         this.mailSender = mailSender;
     }
 
+    @Async
     public void sendEmail(ContactForm contactForm) throws Exception {
         logger.info("Preparing to send email from contact form submitted by: {}", contactForm.getEmail());
         MimeMessage mimeMessage = mailSender.createMimeMessage();
