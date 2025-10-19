@@ -47,6 +47,7 @@ public class EmailService {
                 .queryString("to", RECEIVER_EMAIL)
                 .queryString("subject", subject)
                 .queryString("text", bodyBuilder.toString())
+                .queryString("h:Reply-To", contactForm.getEmail())
                 .asJson();
 
         if (response.getStatus() == 200) {
